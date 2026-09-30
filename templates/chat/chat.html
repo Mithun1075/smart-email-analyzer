@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}AI Chat | Smart Email Analyzer{% endblock %}
+
+{% block content %}
+<!-- Main Chat Showcase Area -->
+<main class="chat-wrapper">
+
+    <!-- Main Chat Stream -->
+    <section class="glass-card chat-card">
+        <div class="chat-messages" id="chatMessages">
+            {% if chat_history %}
+                {% for msg in chat_history %}
+                    {% if msg.role == 'user' %}
+                        <div class="chat-message user-message">
+                            <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                            <div class="message-content">
+                                <div class="sender-name">You</div>
+                                <div class="message-body">{{ msg.text|linebreaksbr }}</div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="chat-message assistant-message">
+                            <div class="avatar"><i class="fa-solid fa-robot"></i></div>
+                            <div class="message-content">
+                                <div class="sender-name">Smart Email Assistant</div>
+                                <div class="message-body">{{ msg.text|linebreaksbr }}</div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <!-- Initial Welcome Greeting from Assistant -->
+                <div class="chat-message assistant-message">
+                    <div class="avatar">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="sender-name">Smart Email Assistant</div>
+                        <div class="message-body">
+                            <p>Hello! I'm your <strong>Smart Email Analyzer</strong> assistant powered by Gemini AI and Model Context Protocol (MCP).</p>
+                            <p>I understand natural language phrasing with <em>no strict command syntax required</em>. Ask me to search your emails, summarize threads, find attachments, or analyze documents.</p>
+                            <p>How can I help you analyze your Gmail today?</p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input-bar">
+            <div id="docIndicatorContainer">
+                {% if document_name %}
+                    <div class="doc-badge" id="currentDocBadge">
+                        <i class="fa-solid fa-file-lines me-1"></i> 
+                        <span id="docName">{{ document_name }}</span>
+                        <button type="button" class="btn-close-doc" id="clearDocBtn" title="Remove document">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                        </button>
+                    </div>
+                {% endif %}
+            </div>
+
+            <form id="chatForm">
+                {% csrf_token %}
+                <input type="text" id="userInput" placeholder="Ask anything about your emails or attachments in natural English..." autocomplete="off" required>
+                
+                <button type="submit" id="sendBtn">
+                    <span>Send</span>
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Smart Email Analyzer | AI Gmail Assistant{% endblock %}</title>
+    <meta name="description" content="AI Gmail Assistant powered by Gemini and DRF. Read-only natural language search and attachment text extraction.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Static CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=3.0">
+    <script>
+        (function() {
+            var savedTheme = localStorage.getItem('sea_theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Top Navigation Bar -->
+        <header class="app-header">
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Smart Email Analyzer</h1>
+                    <span class="sub-badge"><i class="fa-solid fa-shield-halved"></i> Strictly Read-Only</span>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <div class="mode-pill" id="authModePill">
+                    <span class="pulse-dot"></span>
+                    <span id="modeText">
+                        {% if user.is_authenticated %}
+                            {{ request.user.email }}
+                        {% else %}
+                            Not Logged In
+                        {% endif %}
+                    </span>
+                </div>
+
+                <button type="button" class="btn btn-secondary" id="headerNewChatBtn" title="Start New Chat">
+                    <i class="fa-solid fa-plus"></i> <span>New Chat</span>
+                </button>
+
+                <button class="btn btn-secondary" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+                    <i class="fa-solid fa-moon"></i> <span id="themeToggleText">Dark</span>
+                </button>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'accounts:logout' %}" class="btn btn-secondary" id="authBtn">
+                        <i class="fa-solid fa-right-from-bracket"></i> Logout
+                    </a>
+                {% else %}
+                    <a href="{% url 'accounts:google_login' %}" class="btn btn-primary" id="authBtn">
+                        <i class="fa-brands fa-google"></i> Login with Gmail
+                    </a>
+                {% endif %}
+            </div>
+        </header>
+
+        {% block content %}{% endblock %}
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Smart Email Analyzer &bull; Built with Django, Gemini AI, and Model Context Protocol (MCP) &bull; Strictly Read-Only</p>
+        </footer>
+    </div>
+
+    <script src="{% static 'js/app.js' %}?v=4.0"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

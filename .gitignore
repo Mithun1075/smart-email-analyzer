@@ -1,0 +1,42 @@
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
+# Environment Variables & Secrets (CRITICAL: Do NOT commit!)
+.env
+.env.*
+!.env.example
+token.json
+credentials.json
+client_secret*.json
+
+# SQLite Database
+*.sqlite3
+db.sqlite3
+
+# Media & User Uploads
+media/
+media/temp/
+staticfiles/
+
+# Logs
+*.log
+
+# Operating System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace

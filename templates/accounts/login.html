@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Sign In | Smart Mail Analyzer{% endblock %}
+
+{% block content %}
+<main class="login-wrapper">
+    <div class="glass-card login-card">
+        <div class="login-logo">
+            <i class="fa-solid fa-envelope-open-text"></i>
+        </div>
+        <h2>Smart Mail Analyzer</h2>
+        <p>Connect securely with your Google account to analyze, summarize, and chat with your Gmail inbox.</p>
+
+        <div class="login-features">
+            <div class="login-feature-item">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Strictly Read-Only Permissions (<code>gmail.readonly</code>)</span>
+            </div>
+            <div class="login-feature-item">
+                <i class="fa-solid fa-bolt"></i>
+                <span>Powered by Google Gemini AI & Model Context Protocol</span>
+            </div>
+            <div class="login-feature-item">
+                <i class="fa-solid fa-file-contract"></i>
+                <span>PDF, Word, Excel & CSV Attachment Analysis</span>
+            </div>
+        </div>
+
+        <a href="{% url 'accounts:google_login' %}" class="btn btn-primary btn-google-login">
+            <i class="fa-brands fa-google"></i>
+            <span>Sign in with Google</span>
+        </a>
+    </div>
+</main>
+{% endblock %}
